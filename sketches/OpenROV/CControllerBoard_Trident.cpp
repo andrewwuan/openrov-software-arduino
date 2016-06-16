@@ -48,7 +48,7 @@ namespace
 	float ReadBoardTemperature()
 	{
 		// Map ADC range to voltage
-		r_pinVoltage = util::mapf( (float)analogRead( PIN_BOARD_TEMP ), 0.0f, 4095.0f, 0.0f, 3.3f );
+		r_pinVoltage = util::mapf( (float)analogRead( PIN_BOARD_TEMP ), 0.0f, 1023.0f, 0.0f, 3.3f );
 		
 		// Convert voltage to Celsius
 		return ( ( r_pinVoltage - .4f ) * 51.28f );
@@ -61,37 +61,37 @@ namespace
 
 	float ReadCurrent_NonESC()
 	{
-		return util::mapf( (float)analogRead( PIN_NON_ESC_I ), 0.0f, 4095.0f, 0.0f, 3.3f );;
+		return util::mapf( (float)analogRead( PIN_NON_ESC_I ), 0.0f, 1023.0f, 0.0f, 3.3f );;
 	}
 
 	float ReadCurrent_ESC1()
 	{
-		return util::mapf( (float)analogRead( PIN_ESC1_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_ESC1_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 
 	float ReadCurrent_ESC2()
 	{
-		return util::mapf( (float)analogRead( PIN_ESC2_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_ESC2_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 
 	float ReadCurrent_ESC3()
 	{
-		return util::mapf( (float)analogRead( PIN_ESC3_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_ESC3_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 	
 	float ReadCurrent_BattTube1()
 	{
-		return util::mapf( (float)analogRead( PIN_BATT_TUBE1_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_BATT_TUBE1_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 	
 	float ReadCurrent_BattTube2()
 	{
-		return util::mapf( (float)analogRead( PIN_BATT_TUBE2_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_BATT_TUBE2_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 	
 	float ReadCurrent_ExtLoad()
 	{
-		return util::mapf( (float)analogRead( PIN_EXT_LOAD_I ), 0.0f, 4095.0f, 0.0f, 11.0f );;
+		return util::mapf( (float)analogRead( PIN_EXT_LOAD_I ), 0.0f, 1023.0f, 0.0f, 11.0f );;
 	}
 	
 	float ReadTotalCurrent()

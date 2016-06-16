@@ -14,29 +14,28 @@
 #define PIN_LED_1                   28u
 
 // GPIO pins
-#define PIN_D0                      42u
-#define PIN_D1                      50u
-#define PIN_D2                      51u
+#define PIN_D0                      26u
+#define PIN_D1                      28u
+#define PIN_D2                      31u
 #define PIN_D3                      32u
-#define PIN_D4                     	49u
+#define PIN_D4                     	37u
+#define PIN_D5                     	38u
+#define PIN_D6                     	39u
+#define PIN_D7                     	40u
+#define PIN_D8                     	41u
+#define PIN_D9                     	42u
+#define PIN_D10                     46u
+#define PIN_D11                     49u
+#define PIN_D12                     50u
+#define PIN_D13                     51u
 
 // Servo Pins (also digital outputs)
-#define PIN_SERVO_1                 23u 
-#define PIN_SERVO_2                 24u
-#define PIN_SERVO_3                 25u
-#define PIN_SERVO_4                 26u
-#define PIN_SERVO_5                 37u
-#define PIN_SERVO_6                 38u
-#define PIN_SERVO_7                 59u
-#define PIN_SERVO_8                 60u
+#define PIN_SERVO_0                 23u 
+#define PIN_SERVO_1                 24u
+#define PIN_SERVO_2                 25u
     
 // PWM Pins
-#define PIN_PWM_1                   35u
-#define PIN_PWM_2                   36u
-#define PIN_PWM_3                   45u
-#define PIN_PWM_4                   46u
-#define PIN_PWM_5                   19u
-#define PIN_PWM_6                   20u
+#define PIN_PWM_0                   45u
 
 // Analog Pins
 #define PIN_A0                      3u
@@ -51,6 +50,8 @@
 #define PIN_A13   		    	    6u
 #define PIN_A14   		    	    9u
 #define PIN_A15   		    	    10u
+#define PIN_A18   		    	    19u
+#define PIN_A19   		    	    20u
 
 // ------------------------------
 // Pin assignments
@@ -58,52 +59,21 @@
 
 // -----------
 // GPIO
-#define PIN_ENABLE_ESC              PIN_D0
-#define PIN_ENABLE_EXT_I2C          PIN_D1
-#define PIN_ENABLE_INT_I2C          PIN_D2
-#define PIN_ENABLE_PROGRAM          PIN_D3
-#define PIN_ENABLE_ESC_PRECHARGE    PIN_D4
+#define PIN_ENABLE_ESC              PIN_D9
+#define PIN_ENABLE_I2C          	PIN_D13
 
 // -----------
 // Servos
 
 // Standard Motor pin setup
-#define PIN_PORT_MOTOR			    PIN_SERVO_1
-#define PIN_VERTICAL_MOTOR		    PIN_SERVO_2
-#define PIN_STARBOARD_MOTOR		    PIN_SERVO_3
-// Not used						    PIN_SERVO_4
-// Not used						    PIN_SERVO_5
-// Not used							PIN_SERVO_6
-
-// 2xV2 alternative pin setup
-// PIN_PORT_MOTOR					PIN_SERVO_1
-// PIN_STARBOARD_MOTOR			    PIN_SERVO_2
-#define PIN_PORT_VERTICAL_MOTOR		PIN_SERVO_3
-#define PIN_STAR_VERTICAL_MOTOR		PIN_SERVO_4
-// Not used						    PIN_SERVO_5
-// Not used						    PIN_SERVO_6
-
-// V2x1xV2 alternative pin setup
-#define PIN_PORT_FORWARD_MOTOR		PIN_SERVO_1
-#define PIN_STAR_FORWARD_MOTOR		PIN_SERVO_2
-// PIN_VERTICAL_MOTOR				PIN_SERVO_3
-#define PIN_PORT_AFT_MOTOR			PIN_SERVO_4
-#define PIN_STAR_AFT_MOTOR			PIN_SERVO_5
-// Not used						    PIN_SERVO_6
-
-// Other Servos
-#define PIN_CAMERA_MOUNT		    PIN_SERVO_7
-#define PIN_ALTSERVO			    PIN_SERVO_8
+#define PIN_PORT_MOTOR			    PIN_SERVO_0
+#define PIN_VERTICAL_MOTOR		    PIN_SERVO_1
+#define PIN_STARBOARD_MOTOR		    PIN_SERVO_2
 
 // -----------
 // PWM pins
 
-#define PIN_STANDARD_LIGHTS		    PIN_PWM_1
-// Not yet used                     PIN_PWM_2
-#define PIN_EXTERNAL_LIGHTS		    PIN_PWM_3
-#define PIN_LASERS                  PIN_PWM_4
-// Not yet used                     PIN_PWM_5
-// Not yet used                     PIN_PWM_6
+#define PIN_STANDARD_LIGHTS		    PIN_PWM_0
 
 // -----------
 // Analog pins (? = todo)
@@ -123,5 +93,10 @@
 
 // Other Defines
 #define HAS_ESC_POWER_SWITCH		1
+
+#define SerialDebug					Serial
+#define SerialMotor0				Serial1
+#define SerialMotor1				Serial2
+#define SerialMotor2				Serial4
 
 #endif
