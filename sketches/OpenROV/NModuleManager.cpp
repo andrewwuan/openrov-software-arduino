@@ -22,10 +22,6 @@ namespace NModuleManager
 
 		for( int i = 0; i < m_moduleCount; ++i )
 		{
-			// Each module setup can take up to a full second or so to init.
-			// Reset the WDT after each init to keep it from triggering during this step.
-			NSysManager::ResetWatchdogTimer();
-
 			m_pModules[ i ]->Initialize();
 
 			Serial.print( "log:Module Init=" );
