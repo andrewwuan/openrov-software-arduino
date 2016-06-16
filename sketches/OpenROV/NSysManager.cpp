@@ -53,8 +53,8 @@ namespace NSysManager
 		pinMode( PIN_ENABLE_I2C,        	OUTPUT );
 		pinMode( PIN_ENABLE_ESC,            OUTPUT );
 		
+		pinMode( PIN_SERVO_0, 				OUTPUT );
 		pinMode( PIN_SERVO_1, 				OUTPUT );
-		pinMode( PIN_SERVO_2, 				OUTPUT );
-		pinMode( PIN_SERVO_3,				OUTPUT );
+		pinMode( PIN_SERVO_2,				OUTPUT );
 	}
 }
