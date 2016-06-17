@@ -13,6 +13,9 @@
 #include "CControllerBoard.h"
 CControllerBoard m_controllerBoard;
 
+#include "CTestESC.h"
+CTestESC m_esc;
+
 // #if(THRUSTER_CONFIGURATION != THRUSTER_CONFIG_NONE )
 // #include "CThrusters.h"
 // CThrusters m_thrusters;
