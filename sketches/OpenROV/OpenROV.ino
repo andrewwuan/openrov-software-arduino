@@ -16,6 +16,7 @@ void setup()
 
 	// Boot complete
 	Serial.println( "bootstage:1;" );
+	SerialDebug.println( "Start" );
 }
 
 void loop()
