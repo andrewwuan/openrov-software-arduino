@@ -69,7 +69,14 @@ namespace
     fix16_t m_clTarget_f    = 0;
     float m_olTarget        = 0.0f;
     fix16_t m_olTarget_f    = 0;
-
+    
+    float portPos = 0.0f;
+    float portNeg = 0.0f;
+    float vertPos = 0.0f;
+    float vertNeg = 0.0f;
+    float starPos = 0.0f;
+    float starNeg = 0.0f;
+    
     EMotorDirection m_motorDir      = EMotorDirection::NORMAL;
     EMotorDirection m_motorDirPrev  = EMotorDirection::NORMAL;
 
@@ -418,6 +425,33 @@ void CTestESC::Initialize()
 
 void CTestESC::Update( CCommand& command )
 {
+    //The output from the motors is unique to the thruster configuration
+    if( m_controlTimer.HasElapsed( 1000 ) )
+    {
+        Serial.print( F( "mtarg:" ) );
+        Serial.print( "1.0" );
+        Serial.print( ',' );
+        Serial.print( "1.0" );
+        Serial.print( ',' );
+        Serial.print( "1.0" );
+        Serial.println( ';' );
+        
+        
+        Serial.print( F( "mtrmod:" ) );
+        Serial.print( portPos );
+        Serial.print( "," );
+        Serial.print( vertPos );
+        Serial.print( "," );
+        Serial.print( starPos );
+        Serial.print( "," );
+        Serial.print( portNeg );
+        Serial.print( "," );
+        Serial.print( vertNeg );
+        Serial.print( "," );
+        Serial.print( starNeg );
+        Serial.println( ";" );
+    }
+    
     HandleComms();    
 
     // Update throttle
@@ -425,6 +459,37 @@ void CTestESC::Update( CCommand& command )
     {
         SerialDebug.println( "Comand avail" );
         SerialDebug.println( command.m_text );
+        
+        if( command.Equals( "mtrmod1" ) )
+        {
+            portPos = command.m_arguments[1] / 100;
+            vertPos = command.m_arguments[2] / 100;
+            starPos = command.m_arguments[3] / 100;
+        }
+
+        if( command.Equals( "mtrmod2" ) )
+        {
+            portNeg = command.m_arguments[1] / 100;
+            vertNeg = command.m_arguments[2] / 100;
+            starNeg = command.m_arguments[3] / 100;
+        }
+        
+        if( command.Equals( "rmtrmod" ) )
+        {
+            Serial.print( F( "mtrmod:" ) );
+            Serial.print( portPos );
+            Serial.print( "," );
+            Serial.print( vertPos );
+            Serial.print( "," );
+            Serial.print( starPos );
+            Serial.print( "," );
+            Serial.print( portNeg );
+            Serial.print( "," );
+            Serial.print( vertNeg );
+            Serial.print( "," );
+            Serial.print( starNeg );
+            Serial.println( ";" );
+        }
         
         if( command.Equals( "thro" ) )
         {
