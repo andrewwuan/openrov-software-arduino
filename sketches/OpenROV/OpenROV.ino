@@ -5,6 +5,8 @@
 #include "NModuleManager.h"
 #include "NDataManager.h"
 
+#include "PinDefinitions.h"
+
 void setup()
 {
 	// Initialize main subsystems
