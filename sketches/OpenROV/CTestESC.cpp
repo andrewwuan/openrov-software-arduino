@@ -424,6 +424,7 @@ void CTestESC::Update( CCommand& command )
     if( NCommManager::m_isCommandAvailable )
     {
         SerialDebug.println( "Comand avail" );
+        SerialDebug.println( command.m_text );
         
         if( command.Equals( "thro" ) )
         {
