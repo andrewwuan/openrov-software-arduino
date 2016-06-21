@@ -5,7 +5,7 @@
 #include "CTestESC.h"
 #include "CTimer.h"
 #include "NCommManager.h"
-#include "NConfigManager.h"
+#include "NVehicleManager.h"
 #include "Utility.h"
 #include "fix16.h"
 #include <math.h>
@@ -420,10 +420,10 @@ namespace
 
 void CTestESC::Initialize()
 {
-    NConfigManager::m_capabilityBitmask |= ( 1 << LIGHTS_CAPABLE );
-    NConfigManager::m_capabilityBitmask |= ( 1 << DEPTH_CAPABLE );
-    NConfigManager::m_capabilityBitmask |= ( 1 << COMPASS_CAPABLE );
-    NConfigManager::m_capabilityBitmask |= ( 1 << ORIENTATION_CAPABLE );
+    NVehicleManager::m_capabilityBitmask |= ( 1 << LIGHTS_CAPABLE );
+    NVehicleManager::m_capabilityBitmask |= ( 1 << DEPTH_CAPABLE );
+    NVehicleManager::m_capabilityBitmask |= ( 1 << COMPASS_CAPABLE );
+    NVehicleManager::m_capabilityBitmask |= ( 1 << ORIENTATION_CAPABLE );
     
     SerialDebug.println( "Starting esc" );
     m_controlTimer.Reset();
