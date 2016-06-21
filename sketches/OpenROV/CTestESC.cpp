@@ -384,6 +384,8 @@ namespace
          // Read data from the ESC
         while( SerialMotor0.available() )
         {
+            SerialDebug.println( "Got char" );
+            
             char data = SerialMotor0.read();
 
             if( m_bufferIndex == 0 )                                    /* For the first byte received, the start byte must be 0xEE */
@@ -410,6 +412,7 @@ namespace
 
 void CTestESC::Initialize()
 {
+    SerialDebug.println( "Starting esc" );
     m_controlTimer.Reset();
 }
 
@@ -420,8 +423,12 @@ void CTestESC::Update( CCommand& command )
     // Update throttle
     if( NCommManager::m_isCommandAvailable )
     {
+        SerialDebug.println( "Comand avail" );
+        
         if( command.Equals( "thro" ) )
         {
+            SerialDebug.println( "throttle" );
+            
             if( command.m_arguments[1] >= -100 && command.m_arguments[1] <= 100 )
             {
                 // For now, update as fast as we receive commands
