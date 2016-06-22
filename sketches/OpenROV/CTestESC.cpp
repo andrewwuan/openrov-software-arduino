@@ -4,6 +4,7 @@
 // Includes
 #include "CTestESC.h"
 #include "CTimer.h"
+#include "NCommManager"
 #include "Utility.h"
 #include "fix16.h"
 #include <math.h>
@@ -102,7 +103,7 @@ namespace
 
         m_txBuffer[ 8 ] = Checksum( (uint8_t*)&m_txBuffer );
 
-        SerialMotor0.Write( (char*)m_txBuffer, ESC_MESSAGE_SIZE );
+        SerialMotor0.write( (char*)m_txBuffer, ESC_MESSAGE_SIZE );
     }
 
     ERange DetectRange()
@@ -111,7 +112,7 @@ namespace
         {
             return ERange::OFF;
         }
-        else if( m_throttle >= DEADZONE_MAGNITUDE && < TRANSITION_POINT )
+        else if( m_throttle >= DEADZONE_MAGNITUDE && m_throttle < TRANSITION_POINT )
         {
             return ERange::OPEN;
         }
