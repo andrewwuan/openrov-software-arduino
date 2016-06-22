@@ -91,12 +91,6 @@ extern "C"
 		return (fix16_t)temp;
 	}
 
-	/* Subtraction and addition with (optional) overflow detection. */
-	#ifdef FIXMATH_NO_OVERFLOW
-		static inline  fix16_t fix16_add(fix16_t inArg0, fix16_t inArg1) { return (inArg0 + inArg1); }
-		static inline  fix16_t fix16_sub(fix16_t inArg0, fix16_t inArg1) { return (inArg0 - inArg1); }
-	#else
-
 #ifdef __cplusplus
 }
 #endif

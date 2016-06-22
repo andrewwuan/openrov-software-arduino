@@ -2,6 +2,7 @@
 
 // Includes
 #include "CTestESC.h"
+#include "CTimer.h"
 #include "fix16.h"
 #include <math.h>
 
