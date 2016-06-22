@@ -4,7 +4,7 @@
 // Includes
 #include "CTestESC.h"
 #include "CTimer.h"
-#include "NCommManager"
+#include "NCommManager.h"
 #include "Utility.h"
 #include "fix16.h"
 #include <math.h>
