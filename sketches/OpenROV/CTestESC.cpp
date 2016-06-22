@@ -1,4 +1,4 @@
-#include "SysConfig.h"
+#include "PinDefinitions.h"
 #include <Arduino.h>
 
 // Includes
@@ -398,7 +398,7 @@ namespace
             m_rxBuffer[ m_bufferIndex++ ] = data;
 
             // Check for complete message
-            if( m_bufferIndex == UART_MESSAGE_SIZE )
+            if( m_bufferIndex == ESC_MESSAGE_SIZE )
             {
                 ProcessMessage();                                
                 m_bufferIndex = 0;                                      
