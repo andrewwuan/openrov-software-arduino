@@ -1,8 +1,10 @@
 #include "SysConfig.h"
+#include <Arduino.h>
 
 // Includes
 #include "CTestESC.h"
 #include "CTimer.h"
+#include "Utility.h"
 #include "fix16.h"
 #include <math.h>
 
@@ -146,6 +148,11 @@ namespace
         {
             return ETransition::CLOSED_TO_OPEN;
         }
+    }
+
+    uint32_t CreateMotorControlCommand( bool isClosedLoop, bool isEnabled )
+    {
+        return ( 0 | ( 1 << 7 ) | ( isClosedLoop ? ( 1 << 2 ) : ( 0 << 2 ) ) | ( isEnabled ? ( 1 << 1 ) : ( 0 << 1 ) ) );
     }
 
     void DisableMotor()
@@ -349,7 +356,7 @@ namespace
         rxData |= m_rxBuffer[7];
 
         // Validate checksum
-        if( uart_checksum( (uint8_t*)&m_rxBuffer) != m_rxBuffer[8] )
+        if( Checksum( (uint8_t*)&m_rxBuffer) != m_rxBuffer[8] )
         {
             // Checksum error
         }
@@ -402,7 +409,7 @@ namespace
 
 void CTestESC::Initialize()
 {
-    controltime.Reset();
+    m_controlTimer.Reset();
 }
 
 void CTestESC::Update( CCommand& command )
