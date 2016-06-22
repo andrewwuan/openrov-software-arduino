@@ -49,7 +49,7 @@ enum class EMotorDirection
 {
     NORMAL = 0x00,
     REVERSE = 0x01
-}
+};
 
 namespace
 {
