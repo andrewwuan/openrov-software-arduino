@@ -141,7 +141,7 @@ namespace
         {
             return ETransition::OPEN_TO_CLOSED;
         }
-        else if( ( m_rangePrev == ERange::CLOSED ) && ( m_range == ERange::OPEN ) )
+        else if( ( m_rangePrev == ERange::CLOSED ) && ( m_range == ERange::CLOSED ) )
         {
             return ETransition::CLOSED_TO_OPEN;
         }
@@ -149,24 +149,25 @@ namespace
 
     void DisableMotor()
     {
-        // Set mode to open
-        m_mode = EMode::OPENLOOP;
-
         // Send disable command to motor
         SendCommand( START_BYTE, CMD_MOTOR_CONTROL_WRITE, 0x00, CreateMotorControlCommand( false, false ) );
     }
 
     void EnableMotor()
     {
-        if( m_mode == EMode::OPENLOOP )
+        if( m_range == ERange::OPEN )
         {
             // Open loop
             SendCommand( START_BYTE, CMD_MOTOR_CONTROL_WRITE, 0x00, CreateMotorControlCommand( false, true ) );
         }
-        else
+        else if( m_range == ERange::CLOSED )
         {
             // Closed loop
             SendCommand( START_BYTE, CMD_MOTOR_CONTROL_WRITE, 0x00, CreateMotorControlCommand( true, true ) );
+        }
+        else
+        {
+            // Shouldn't get here! No need to enable motor if our target is in the deadzone
         }
     }
 
@@ -241,16 +242,20 @@ namespace
                         UpdateSetpoints();
                         SetMotorDirection();
                         EnableMotor();
+
+                        SerialDebug.println( "A" );
                     }
                     else
                     {
                         // Stayed in the same mode and direction, just update setpoint
                         UpdateSetpoints();
+                        SerialDebug.println( "B" );
                     }
                 }
                 else
                 {
                     // Do nothing, motor is off
+                    SerialDebug.println( "C" );
                 }
 
                 break;
@@ -263,11 +268,13 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
+                    SerialDebug.println( "D" );
                 }
                 else
                 {
                     UpdateSetpoints();
                     EnableMotor();
+                    SerialDebug.println( "E" );
                 }
                 
                 break;
@@ -276,6 +283,7 @@ namespace
             case ETransition::ON_TO_OFF:
             {
                 DisableMotor();
+                SerialDebug.println( "F" );
                 break;
             }
 
@@ -287,11 +295,13 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
+                    SerialDebug.println( "G" );
                 }
                 else
                 {
                     UpdateSetpoints();
                     EnableMotor();
+                    SerialDebug.println( "H" );
                 }
 
                 break;
@@ -305,12 +315,14 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
+                    SerialDebug.println( "I" );
                 }
                 else
                 {
                     DisableMotor();
                     UpdateSetpoints();
                     EnableMotor();
+                    SerialDebug.println( "J" );
                 }
 
                 break;
@@ -319,6 +331,7 @@ namespace
             default:
             {
                 DisableMotor();
+                SerialDebug.println( "K" );
                 break;
             }
         }
