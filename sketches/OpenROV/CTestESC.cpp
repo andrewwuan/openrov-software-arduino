@@ -155,7 +155,7 @@ namespace
         {
             return ETransition::OPEN_TO_CLOSED;
         }
-        else if( ( m_rangePrev == ERange::CLOSED ) && ( m_range == ERange::CLOSED ) )
+        else if( ( m_rangePrev == ERange::CLOSED ) && ( m_range == ERange::OPEN ) )
         {
             return ETransition::CLOSED_TO_OPEN;
         }
