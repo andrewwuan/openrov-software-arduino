@@ -236,10 +236,10 @@ namespace
         else
         {
             // Scale and floor/ceiling the targets appropriately
-            m_clTarget = util::mapf( fabs( m_throttle ), 0.0f, 1.0f, CLOSE_LOOP_MIN, CLOSE_LOOP_MAX );
+            m_clTarget = util::mapff( m_throttle, 0.0f, 1.0f, CLOSE_LOOP_MIN, CLOSE_LOOP_MAX );
             m_clTarget = ( m_clTarget < CLOSE_LOOP_FLOOR ) ? CLOSE_LOOP_FLOOR : m_clTarget;
 
-            m_olTarget = util::mapf( fabs( m_throttle ), 0.0f, 1.0f, OPEN_LOOP_MIN, OPEN_LOOP_MAX );
+            m_olTarget = util::mapff( m_throttle, 0.0f, 1.0f, OPEN_LOOP_MIN, OPEN_LOOP_MAX );
             m_olTarget = ( m_olTarget > OPEN_LOOP_CEILING ) ? OPEN_LOOP_CEILING : m_olTarget;
         }
 
@@ -261,20 +261,16 @@ namespace
                         UpdateSetpoints();
                         SetMotorDirection();
                         EnableMotor();
-
-                        SerialDebug.println( "A" );
                     }
                     else
                     {
                         // Stayed in the same mode and direction, just update setpoint
                         UpdateSetpoints();
-                        SerialDebug.println( "B" );
                     }
                 }
                 else
                 {
                     // Do nothing, motor is off
-                    SerialDebug.println( "C" );
                 }
 
                 break;
@@ -287,14 +283,14 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
-                    SerialDebug.println( "D" );
                 }
                 else
                 {
                     UpdateSetpoints();
                     EnableMotor();
-                    SerialDebug.println( "E" );
                 }
+                
+                SerialDebug.println( "Off->On" );
                 
                 break;
             }
@@ -302,7 +298,7 @@ namespace
             case ETransition::ON_TO_OFF:
             {
                 DisableMotor();
-                SerialDebug.println( "F" );
+                SerialDebug.println( "Motor off" );
                 break;
             }
 
@@ -314,14 +310,14 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
-                    SerialDebug.println( "G" );
                 }
                 else
                 {
                     UpdateSetpoints();
                     EnableMotor();
-                    SerialDebug.println( "H" );
                 }
+                
+                SerialDebug.println( "Open->Close" );
 
                 break;
             }
@@ -334,15 +330,15 @@ namespace
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
-                    SerialDebug.println( "I" );
                 }
                 else
                 {
                     DisableMotor();
                     UpdateSetpoints();
                     EnableMotor();
-                    SerialDebug.println( "J" );
                 }
+                
+                SerialDebug.println( "Close->Open" );
 
                 break;
             }
@@ -350,7 +346,7 @@ namespace
             default:
             {
                 DisableMotor();
-                SerialDebug.println( "K" );
+                SerialDebug.println( "Unknown" );
                 break;
             }
         }
@@ -393,9 +389,7 @@ namespace
     {
          // Read data from the ESC
         while( SerialMotor0.available() )
-        {
-            SerialDebug.println( "Got char" );
-            
+        {            
             char data = SerialMotor0.read();
 
             if( m_bufferIndex == 0 )                                    /* For the first byte received, the start byte must be 0xEE */
@@ -465,9 +459,6 @@ void CTestESC::Update( CCommand& command )
     // Update throttle
     if( NCommManager::m_isCommandAvailable )
     {
-        SerialDebug.println( "Comand avail" );
-        SerialDebug.println( command.m_text );
-        
         if( command.Equals( "mtrmod1" ) )
         {
             portPos = command.m_arguments[1] / 100;
@@ -505,6 +496,9 @@ void CTestESC::Update( CCommand& command )
             
             if( command.m_arguments[1] >= -100 && command.m_arguments[1] <= 100 )
             {
+                SerialDebug.print( "Gamepad input: " );
+                SerialDebug.println( ( (float)command.m_arguments[1] / 100.0f )  );
+                
                 // For now, update as fast as we receive commands
                 HandleInput( (float)command.m_arguments[1] / 100.0f );
             }
