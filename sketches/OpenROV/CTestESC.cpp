@@ -30,7 +30,7 @@
 
 #define CLOSE_LOOP_MIN              0.0f
 #define CLOSE_LOOP_FLOOR            314.159f
-#define CLOSE_LOOP_MAX              2513.272f
+#define CLOSE_LOOP_MAX              3500.0f
 
 
 enum class ETransition
@@ -284,17 +284,9 @@ namespace
 
             case ETransition::OFF_TO_ON:
             {
-                if( reversed )
-                {
-                    UpdateSetpoints();
-                    SetMotorDirection();
-                    EnableMotor();
-                }
-                else
-                {
-                    UpdateSetpoints();
-                    EnableMotor();
-                }
+                SetMotorDirection();
+                UpdateSetpoints();
+                EnableMotor();
                 
                 SerialDebug.println( "Off->On" );
                 
