@@ -94,8 +94,8 @@
 // Other Defines
 #define HAS_ESC_POWER_SWITCH		1
 
-#define SerialDebug					Serial3
-#define SerialMotor0				Serial1
+#define SerialDebug					Serial1
+#define SerialMotor0				Serial3
 #define SerialMotor1				Serial2
 #define SerialMotor2				Serial4
 
