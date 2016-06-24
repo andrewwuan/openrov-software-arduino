@@ -242,6 +242,12 @@ namespace
             m_olTarget = util::mapff( m_throttle, 0.0f, 1.0f, OPEN_LOOP_MIN, OPEN_LOOP_MAX );
             m_olTarget = ( m_olTarget > OPEN_LOOP_CEILING ) ? OPEN_LOOP_CEILING : m_olTarget;
         }
+        
+        SerialDebug.print( "clTarget: " );
+        SerialDebug.println( m_clTarget );
+        
+        SerialDebug.print( "olTarget: " );
+        SerialDebug.println( m_olTarget );
 
         // Convert to fixed16_t
         m_olTarget_f = fix16_from_float( m_olTarget );
