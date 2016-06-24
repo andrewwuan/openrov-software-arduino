@@ -19,6 +19,7 @@
 #define PARAM_REVERSE               0x63
 #define PARAM_CL_SETPOINT           0x0E
 #define PARAM_OL_SETPOINT           0x0C
+#define PARAM_AUTO_SWITCH           0x76
 
 
 #define DEADZONE_MAGNITUDE          0.02f
@@ -207,6 +208,11 @@ namespace
             SendCommand( START_BYTE, CMD_PARAMETER_WRITE, PARAM_REVERSE, 0x01 );
         }
     }
+    
+    void EnableAutoSwitchMode( bool isEnabled )
+    {
+        SendCommand( START_BYTE, CMD_PARAMETER_WRITE, PARAM_AUTO_SWITCH, ( isEnabled ? 0x01 : 0x00 ) );
+    }
 
 
     void HandleInput( float target )
@@ -284,6 +290,15 @@ namespace
 
             case ETransition::OFF_TO_ON:
             {
+                if( m_range == ERange::CLOSED )
+                {
+                    EnableAutoSwitchMode( true );
+                }
+                else
+                {
+                    EnableAutoSwitchMode( false );
+                }
+                
                 SetMotorDirection();
                 UpdateSetpoints();
                 EnableMotor();
@@ -305,6 +320,7 @@ namespace
                 if( reversed )
                 {
                     DisableMotor();
+                    EnableAutoSwitchMode( true );
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
@@ -312,6 +328,7 @@ namespace
                 else
                 {
                     UpdateSetpoints();
+                    EnableAutoSwitchMode( true );
                     EnableMotor();
                 }
                 
@@ -325,6 +342,7 @@ namespace
                 if( reversed )
                 {
                     DisableMotor();
+                    EnableAutoSwitchMode( false );
                     UpdateSetpoints();
                     SetMotorDirection();
                     EnableMotor();
@@ -332,6 +350,7 @@ namespace
                 else
                 {
                     DisableMotor();
+                    EnableAutoSwitchMode( false );
                     UpdateSetpoints();
                     EnableMotor();
                 }
@@ -344,6 +363,7 @@ namespace
             default:
             {
                 DisableMotor();
+                EnableAutoSwitchMode( false );
                 SerialDebug.println( "Unknown" );
                 break;
             }
