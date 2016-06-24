@@ -112,6 +112,8 @@ namespace
         m_txBuffer[ 8 ] = Checksum( (uint8_t*)&m_txBuffer );
 
         SerialMotor0.write( (char*)m_txBuffer, ESC_MESSAGE_SIZE );
+        
+        delay( 6 );
     }
 
     ERange DetectRange()
