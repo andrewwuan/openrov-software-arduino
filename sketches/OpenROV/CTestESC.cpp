@@ -163,7 +163,7 @@ namespace
 
     uint32_t CreateMotorControlCommand( bool isClosedLoop, bool isEnabled )
     {
-        return ( 0 | ( 1 << 7 ) | ( isClosedLoop ? ( 1 << 2 ) : ( 0 << 2 ) ) | ( isEnabled ? ( 1 << 1 ) : ( 0 << 1 ) ) );
+        return ( 0 | ( 0 << 7 ) | ( isClosedLoop ? ( 1 << 2 ) : ( 0 << 2 ) ) | ( isEnabled ? ( 1 << 1 ) : ( 0 << 1 ) ) );
     }
 
     void DisableMotor()
